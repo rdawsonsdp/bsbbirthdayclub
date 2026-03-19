@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Club | Brown Sugar Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Tenor+Sans&family=Assistant:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ========== FLOATING TRIGGER BUTTON ========== -->
+  <div class="bday-trigger" onclick="openModal()">
+    <img src="logo.png" alt="Brown Sugar Bakery" class="bday-trigger-logo">
+    <span class="bday-trigger-text">Join the<br><strong>Birthday Club!</strong></span>
+  </div>
+
+  <!-- ========== MODAL OVERLAY ========== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <!-- Close button -->
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+
+      <!-- Header with logo -->
+      <div class="header">
+        <img src="logo.png" alt="Brown Sugar Bakery" class="logo">
+        <h1>The Brown Sugar Bakery<br>Birthday Club</h1>
+        <p class="tagline">Because Everyone Has a Birthday</p>
+      </div>
+
+      <!-- Benefits -->
+      <div class="benefits">
+        <div class="benefit">
+          <div class="benefit-icon">&#127873;</div>
+          <div class="benefit-text">
+            <strong>30% Off Your Birthday</strong>
+            <span>A special discount just for you on your big day</span>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">&#128149;</div>
+          <div class="benefit-text">
+            <strong>20% Off for Family</strong>
+            <span>Your loved ones get their own birthday discount too</span>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">&#129473;</div>
+          <div class="benefit-text">
+            <strong>Free Birthday Cupcake</strong>
+            <span>Come in on your birthday for a cupcake on us</span>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">&#11088;</div>
+          <div class="benefit-text">
+            <strong>Members-Only Specials</strong>
+            <span>Exclusive products and deals only for Birthday Club members</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress">
+        <div class="progress-step">
+          <div class="progress-dot active" id="dot-1">1</div>
+          <span class="progress-label">You</span>
+        </div>
+        <div class="progress-line" id="line-1"></div>
+        <div class="progress-step">
+          <div class="progress-dot" id="dot-2">2</div>
+          <span class="progress-label">Family</span>
+        </div>
+        <div class="progress-line" id="line-2"></div>
+        <div class="progress-step">
+          <div class="progress-dot" id="dot-3">3</div>
+          <span class="progress-label">Done</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Your Info -->
+      <div class="step active" id="step-1">
+        <div class="card">
+          <h2>Your Information</h2>
+          <p class="subtitle">Join the club and we'll celebrate you with a sweet treat on your birthday.</p>
+          <div class="error-banner" id="error-1"></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" placeholder="Jane" required>
+              <div class="error-msg"></div>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" placeholder="Doe" required>
+              <div class="error-msg"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="jane@example.com" required>
+            <div class="error-msg"></div>
+          </div>
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="birthday">Your Birthday</label>
+            <input type="date" id="birthday" required>
+            <div class="error-msg"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btnJoin" onclick="submitForm()">Join the Club</button>
+          </div>
+          <div class="add-family-link">
+            <a href="#" onclick="goToStep(2); return false;">+ Add family members for their own birthday perks</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Family Members -->
+      <div class="step" id="step-2">
+        <div class="card">
+          <h2>Add Your Family</h2>
+          <p class="subtitle">Everyone has a birthday! Add 1&ndash;4 family members so we can celebrate them too.</p>
+          <div class="error-banner" id="error-2"></div>
+          <div id="familyList"></div>
+          <button class="btn-add" id="btnAddFamily" onclick="addFamilyMember()">+ Add Family Member</button>
+          <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goToStep(1)">&larr; Back</button>
+            <button class="btn btn-primary" id="btnSubmit" onclick="submitForm()">Join the Club</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Success -->
+      <div class="step" id="step-3">
+        <div class="card success-screen">
+          <img src="logo.png" alt="Brown Sugar Bakery" class="success-logo">
+          <h2>Welcome to the Club!</h2>
+          <p>You're all set! We'll send a special birthday discount before each birthday in your family. Life is sweet.</p>
+          <div class="life-is-sweet">Life is Sweet</div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>Brown Sugar Bakery &middot; Made in Chicago Since 2004</p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

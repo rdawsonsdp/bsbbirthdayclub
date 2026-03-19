@@ -1,0 +1,639 @@
+/* Birthday Club - Brown Sugar Bakery (matching Shopify store) */
+
+:root {
+  --brown-dark: #5b2512;
+  --orange: #e68b3c;
+  --orange-hover: #d07a2f;
+  --gray-dark: #292929;
+  --gray-mid: #7c7a7a;
+  --gray-light: #f6f6f6;
+  --white: #ffffff;
+  --bg: #fdf8f4;
+  --card-bg: #ffffff;
+  --text: #292929;
+  --text-light: #7c7a7a;
+  --border: rgba(91, 37, 18, 0.15);
+  --border-strong: rgba(91, 37, 18, 0.35);
+  --success: #28a745;
+  --error: #b94a48;
+  --radius: 2px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Tenor Sans', serif;
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ========== FLOATING TRIGGER BUTTON ========== */
+.bday-trigger {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border: 2px solid var(--orange);
+  border-radius: 60px;
+  padding: 8px 20px 8px 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(91, 37, 18, 0.2);
+  transition: all 0.3s ease;
+  z-index: 9998;
+}
+
+.bday-trigger:hover {
+  box-shadow: 0 6px 32px rgba(91, 37, 18, 0.3);
+  transform: translateY(-2px);
+}
+
+.bday-trigger-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+}
+
+.bday-trigger-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: var(--brown-dark);
+  line-height: 1.3;
+}
+
+.bday-trigger-text strong {
+  font-size: 15px;
+  color: var(--orange);
+  display: block;
+}
+
+/* ========== MODAL OVERLAY ========== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(41, 41, 41, 0.55);
+  z-index: 9999;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 32px 16px;
+  overflow-y: auto;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: var(--bg);
+  width: 100%;
+  max-width: 580px;
+  border-radius: 8px;
+  padding: 32px 24px 24px;
+  position: relative;
+  box-shadow: 0 12px 48px rgba(91, 37, 18, 0.25);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: var(--gray-mid);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: rgba(91, 37, 18, 0.08);
+  color: var(--brown-dark);
+}
+
+/* ========== HEADER ========== */
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 20px rgba(91, 37, 18, 0.15);
+}
+
+.header h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 34px;
+  color: var(--brown-dark);
+  margin-bottom: 4px;
+}
+
+.tagline {
+  font-family: 'Assistant', sans-serif;
+  color: var(--orange);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* ========== BENEFITS ========== */
+.benefits {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+}
+
+.benefit + .benefit {
+  border-top: 1px solid var(--border);
+}
+
+.benefit-icon {
+  font-size: 1.4rem;
+  width: 42px;
+  height: 42px;
+  background: rgba(230, 139, 60, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.benefit-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.benefit-text strong {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--brown-dark);
+}
+
+.benefit-text span {
+  font-family: 'Assistant', sans-serif;
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+/* ========== PROGRESS STEPS ========== */
+.progress {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.progress-label {
+  font-family: 'Assistant', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.progress-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gray-light);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: var(--brown-dark);
+  color: var(--white);
+}
+
+.progress-dot.completed {
+  background: var(--orange);
+  color: var(--white);
+}
+
+.progress-line {
+  width: 40px;
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  transition: background 0.3s ease;
+  margin-top: 15px;
+}
+
+.progress-line.active {
+  background: var(--orange);
+}
+
+/* ========== CARD ========== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  margin-bottom: 12px;
+}
+
+.card h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 4px;
+  color: var(--brown-dark);
+}
+
+.card .subtitle {
+  font-family: 'Assistant', sans-serif;
+  color: var(--text-light);
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* ========== FORM ELEMENTS ========== */
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-family: 'Assistant', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 9px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-family: 'Tenor Sans', serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--white);
+  color: var(--text);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 2px rgba(230, 139, 60, 0.2);
+}
+
+.form-group input.invalid,
+.form-group select.invalid {
+  border-color: var(--error);
+  box-shadow: 0 0 0 2px rgba(185, 74, 72, 0.15);
+}
+
+.form-group .error-msg {
+  color: var(--error);
+  font-family: 'Assistant', sans-serif;
+  font-size: 12px;
+  margin-top: 3px;
+  min-height: 16px;
+}
+
+/* ========== FAMILY MEMBER ENTRY ========== */
+.family-entry {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 14px;
+  margin-bottom: 14px;
+  background: var(--gray-light);
+}
+
+.family-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.family-entry-header h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brown-dark);
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: var(--error);
+  cursor: pointer;
+  font-family: 'Assistant', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+}
+
+.btn-remove:hover {
+  background: rgba(185, 74, 72, 0.1);
+}
+
+/* ========== BUTTONS ========== */
+.btn-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 11px 22px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: var(--white);
+  flex: 1;
+}
+
+.btn-primary:hover {
+  background: var(--orange-hover);
+}
+
+.btn-primary:disabled {
+  background: rgba(230, 139, 60, 0.4);
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--brown-dark);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  background: var(--gray-light);
+}
+
+.btn-add {
+  background: none;
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius);
+  padding: 12px;
+  width: 100%;
+  color: var(--orange);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 6px;
+}
+
+.btn-add:hover {
+  border-color: var(--orange);
+  background: rgba(230, 139, 60, 0.04);
+}
+
+.btn-add:disabled {
+  color: var(--text-light);
+  border-color: var(--border);
+  cursor: not-allowed;
+}
+
+/* Add family link */
+.add-family-link {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.add-family-link a {
+  color: var(--orange);
+  font-family: 'Assistant', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.add-family-link a:hover {
+  color: var(--brown-dark);
+  text-decoration: underline;
+}
+
+/* Step visibility */
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== SUCCESS SCREEN ========== */
+.success-screen {
+  text-align: center;
+  padding: 32px 20px;
+}
+
+.success-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(91, 37, 18, 0.15);
+}
+
+.success-screen h2 {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--brown-dark);
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.success-screen p {
+  color: var(--text-light);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.life-is-sweet {
+  font-family: 'Tenor Sans', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--orange);
+  margin-top: 4px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 12px 0 4px;
+}
+
+.footer p {
+  font-family: 'Assistant', sans-serif;
+  font-size: 12px;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+}
+
+/* Loading spinner */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--white);
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error banner */
+.error-banner {
+  background: rgba(185, 74, 72, 0.08);
+  color: var(--error);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  margin-bottom: 14px;
+  font-family: 'Assistant', sans-serif;
+  font-size: 13px;
+  border-left: 3px solid var(--error);
+  display: none;
+}
+
+.error-banner.visible {
+  display: block;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 480px) {
+  .modal {
+    padding: 24px 16px 16px;
+  }
+
+  .card {
+    padding: 20px 14px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .logo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .progress-line {
+    width: 28px;
+  }
+
+  .bday-trigger {
+    bottom: 16px;
+    right: 16px;
+    padding: 6px 16px 6px 6px;
+  }
+
+  .bday-trigger-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .bday-trigger-text {
+    font-size: 12px;
+  }
+
+  .bday-trigger-text strong {
+    font-size: 13px;
+  }
+}
