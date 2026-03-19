@@ -13,6 +13,7 @@
 
   <!-- ========== FLOATING TRIGGER BUTTON ========== -->
   <div class="bday-trigger" onclick="openModal()">
+    <span class="trigger-cake">&#127874;</span>
     <img src="logo.png" alt="Brown Sugar Bakery" class="bday-trigger-logo">
     <span class="bday-trigger-text">Join the<br><strong>Birthday Club!</strong></span>
   </div>
@@ -20,14 +21,30 @@
   <!-- ========== MODAL OVERLAY ========== -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
     <div class="modal">
+      <!-- Entrance confetti layer -->
+      <div id="entranceConfetti" class="entrance-confetti"></div>
+
       <!-- Close button -->
       <button class="modal-close" onclick="closeModal()">&times;</button>
 
       <!-- Header with logo -->
       <div class="header">
+        <div class="header-party">
+          <span class="float-emoji float-1">&#127880;</span>
+          <span class="float-emoji float-2">&#127874;</span>
+          <span class="float-emoji float-3">&#127872;</span>
+          <span class="float-emoji float-4">&#127881;</span>
+          <span class="float-emoji float-5">&#129473;</span>
+          <span class="float-emoji float-6">&#127882;</span>
+          <span class="float-emoji float-7">&#127878;</span>
+        </div>
+        <div class="party-poppers">
+          <span class="popper popper-left">&#127881;</span>
+          <span class="popper popper-right">&#127881;</span>
+        </div>
         <img src="logo.png" alt="Brown Sugar Bakery" class="logo">
         <h1>The Brown Sugar Bakery<br>Birthday Club</h1>
-        <p class="tagline">Because Everyone Has a Birthday</p>
+        <p class="tagline">Because Everyone Has a Birthday &#127874;</p>
       </div>
 
       <!-- Benefits -->
@@ -135,10 +152,15 @@
       <!-- Step 3: Success -->
       <div class="step" id="step-3">
         <div class="card success-screen">
+          <div id="confettiContainer" class="confetti-container"></div>
+          <div class="success-cake">&#127874;</div>
           <img src="logo.png" alt="Brown Sugar Bakery" class="success-logo">
           <h2>Welcome to the Club!</h2>
           <p>You're all set! We'll send a special birthday discount before each birthday in your family. Life is sweet.</p>
           <div class="life-is-sweet">Life is Sweet</div>
+          <div class="success-sprinkles">
+            <span>&#127880;</span><span>&#11088;</span><span>&#129473;</span><span>&#127881;</span><span>&#127873;</span>
+          </div>
         </div>
       </div>
 

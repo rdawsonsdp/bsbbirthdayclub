@@ -20,6 +20,7 @@ const MIN_FAMILY = 1;
 function openModal() {
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  launchEntranceConfetti();
 }
 
 function closeModal() {
@@ -52,6 +53,9 @@ function goToStep(step) {
 
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById(`step-${step}`).classList.add('active');
+
+  // Launch confetti on success screen
+  if (step === 3) launchConfetti();
 
   // Update progress dots
   for (let i = 1; i <= 3; i++) {
@@ -298,6 +302,13 @@ async function submitForm() {
       if (familyError) throw familyError;
     }
 
+    // Fire-and-forget: send welcome email
+    fetch(`${SUPABASE_URL}/functions/v1/send-welcome-email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ member_id: member.id }),
+    }).catch(() => {}); // silently ignore errors
+
     // Success
     goToStep(3);
   } catch (err) {
@@ -305,4 +316,80 @@ async function submitForm() {
     btn.disabled = false;
     btn.textContent = 'Join the Club';
   }
+}
+
+// ---------- Confetti systems ----------
+
+const CONFETTI_COLORS = ['#e68b3c', '#5b2512', '#f4c542', '#e85d75', '#6bc5d2', '#a8e06c', '#d4a0e8', '#ff6b9d', '#ffd93d'];
+const PARTY_EMOJI = ['🎂', '🧁', '🎁', '🎈', '🎉', '🎊', '⭐', '✨', '🍰', '💛'];
+
+function createConfettiPiece(container, opts = {}) {
+  const count = opts.count || 80;
+  const useEmoji = opts.emoji || false;
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.classList.add('confetti-piece');
+
+    const left = Math.random() * 100;
+    const delay = Math.random() * (opts.delaySpread || 1);
+    const duration = (opts.baseDuration || 2) + Math.random() * 2;
+    const drift = (Math.random() - 0.5) * 160;
+    const spin = 360 + Math.random() * 720;
+
+    piece.style.left = `${left}%`;
+    piece.style.animationDelay = `${delay}s`;
+    piece.style.animationDuration = `${duration}s`;
+    piece.style.setProperty('--drift', `${drift}px`);
+    piece.style.setProperty('--spin', `${spin}deg`);
+
+    if (useEmoji && Math.random() > 0.6) {
+      piece.textContent = PARTY_EMOJI[Math.floor(Math.random() * PARTY_EMOJI.length)];
+      piece.style.fontSize = `${14 + Math.random() * 18}px`;
+      piece.style.width = 'auto';
+      piece.style.height = 'auto';
+      piece.style.background = 'none';
+    } else {
+      const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+      const size = 6 + Math.random() * 10;
+      const shapes = ['circle', 'square', 'star'];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+
+      piece.style.width = `${size}px`;
+      piece.style.height = `${size}px`;
+      piece.style.backgroundColor = color;
+
+      if (shape === 'circle') piece.style.borderRadius = '50%';
+      else if (shape === 'star') {
+        piece.style.backgroundColor = 'transparent';
+        piece.textContent = '★';
+        piece.style.fontSize = `${size + 4}px`;
+        piece.style.color = color;
+        piece.style.width = 'auto';
+        piece.style.height = 'auto';
+      }
+    }
+
+    container.appendChild(piece);
+  }
+}
+
+function launchEntranceConfetti() {
+  const container = document.getElementById('entranceConfetti');
+  if (!container) return;
+  container.innerHTML = '';
+  createConfettiPiece(container, { count: 100, emoji: true, delaySpread: 1.2, baseDuration: 2 });
+  // Auto-cleanup
+  setTimeout(() => { container.innerHTML = ''; }, 4000);
+}
+
+function launchConfetti() {
+  const container = document.getElementById('confettiContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  createConfettiPiece(container, { count: 120, emoji: true, delaySpread: 1, baseDuration: 2.5 });
+  // Second wave
+  setTimeout(() => {
+    createConfettiPiece(container, { count: 60, emoji: true, delaySpread: 0.8, baseDuration: 2 });
+  }, 800);
 }
