@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Club | Brown Sugar Bakery (Local Preview)</title>
+<meta property="og:title" content="Brown Sugar Bakery Birthday Club" />
+<meta property="og:description" content="Because everyone has a birthday. Join the club and we'll celebrate you and your family with sweet birthday treats." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://localhost:8000/pages/birthday-club" />
+<meta property="og:image" content="logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Brown Sugar Bakery Birthday Club" />
+<meta name="twitter:description" content="Join the club. Celebrate every birthday in your family with a sweet treat from Brown Sugar Bakery." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Tenor+Sans&display=swap" rel="stylesheet">
+
+<style>
+  /* ===================== Brand tokens ===================== */
+  .bdc {
+    --brown-dark: #5b2512;
+    --brown-medium: #6B3410;
+    --orange: #e68b3c;
+    --orange-hover: #d07a2f;
+    --cream: #fdf8f4;
+    --cream-deep: #FBF6EC;
+    --text: #292929;
+    --text-light: #7c7a7a;
+    --border: rgba(91, 37, 18, 0.15);
+    --success: #28a745;
+    --error: #b94a48;
+  }
+
+  /* ===================== Page wrapper ===================== */
+  .bdc {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Open Sans', -apple-system, sans-serif;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  .bdc * { box-sizing: border-box; }
+
+  .bdc-section {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  /* ===================== Hero ===================== */
+  .bdc-hero {
+    text-align: center;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+    padding: 64px 24px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bdc-hero-emoji {
+    position: absolute;
+    font-size: 28px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .bdc-hero-emoji.e1 { top: 20px;  left: 8%;  animation: float1 6s ease-in-out infinite; }
+  .bdc-hero-emoji.e2 { top: 40px;  right: 12%; animation: float2 7s ease-in-out infinite; }
+  .bdc-hero-emoji.e3 { bottom: 30px; left: 14%; animation: float1 5.5s ease-in-out infinite; }
+  .bdc-hero-emoji.e4 { bottom: 20px; right: 8%; animation: float2 6.5s ease-in-out infinite; }
+
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(8deg); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0) rotate(5deg); }
+    50% { transform: translateY(-16px) rotate(-8deg); }
+  }
+
+  .bdc-hero img.bdc-logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(91, 37, 18, 0.15);
+  }
+
+  .bdc-hero h1 {
+    font-family: 'Tenor Sans', serif;
+    color: var(--brown-dark);
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 400;
+    margin: 0 0 12px;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .bdc-hero p.bdc-tagline {
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: var(--brown-medium);
+    margin: 0 0 28px;
+    font-weight: 600;
+  }
+
+  .bdc-hero-cta {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 16px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(230, 139, 60, 0.3);
+  }
+  .bdc-hero-cta:hover {
+    background: var(--orange-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(230, 139, 60, 0.4);
+  }
+
+  /* ===================== Benefits ===================== */
+  .bdc-benefits {
+    background: #fff;
+    padding: 56px 24px;
+  }
+
+  .bdc-benefits h2 {
+    font-family: 'Tenor Sans', serif;
+    color: var(--brown-dark);
+    font-size: clamp(24px, 4vw, 32px);
+    text-align: center;
+    margin: 0 0 8px;
+    font-weight: 400;
+  }
+
+  .bdc-benefits .bdc-section-sub {
+    text-align: center;
+    color: var(--text-light);
+    margin: 0 auto 40px;
+    max-width: 560px;
+  }
+
+  .bdc-benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .bdc-benefit-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .bdc-benefit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(91, 37, 18, 0.1);
+  }
+
+  .bdc-benefit-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .bdc-benefit-card h3 {
+    font-family: 'Tenor Sans', serif;
+    color: var(--brown-dark);
+    font-size: 18px;
+    margin: 0 0 8px;
+    font-weight: 400;
+  }
+
+  .bdc-benefit-card p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== How it works ===================== */
+  .bdc-how {
+    padding: 56px 24px;
+    background: var(--cream-deep);
+  }
+
+  .bdc-how h2 {
+    font-family: 'Tenor Sans', serif;
+    color: var(--brown-dark);
+    font-size: clamp(24px, 4vw, 32px);
+    text-align: center;
+    margin: 0 0 40px;
+    font-weight: 400;
+  }
+
+  .bdc-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .bdc-step {
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  .bdc-step-num {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 50%;
+    font-family: 'Tenor Sans', serif;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .bdc-step h3 {
+    font-family: 'Tenor Sans', serif;
+    color: var(--brown-dark);
+    font-size: 18px;
+    margin: 0 0 8px;
+    font-weight: 400;
+  }
+
+  .bdc-step p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===================== Form section ===================== */
+  .bdc-signup {
+    padding: 56px 24px;
+    background: #fff;
+  }
+
+  .bdc-form-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 40px 32px;
+    box-shadow: 0 6px 28px rgba(91, 37, 18, 0.08);
+  }
+
+  .bdc-form-wrap h2 {
+    font-family: 'Tenor Sans', serif;
+    color: var(--brown-dark);
+    font-size: clamp(22px, 3.5vw, 28px);
+    text-align: center;
+    margin: 0 0 8px;
+    font-weight: 400;
+  }
+
+  .bdc-form-wrap p.bdc-form-sub {
+    text-align: center;
+    color: var(--text-light);
+    margin: 0 0 28px;
+    font-size: 15px;
+  }
+
+  .bdc-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  @media (max-width: 480px) {
+    .bdc-form-row { grid-template-columns: 1fr; }
+  }
+
+  .bdc-field {
+    margin-bottom: 14px;
+  }
+
+  .bdc-field label {
+    display: block;
+    font-size: 13px;
+    color: var(--brown-dark);
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .bdc-field input,
+  .bdc-field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .bdc-field input:focus,
+  .bdc-field select:focus {
+    outline: none;
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(230, 139, 60, 0.15);
+  }
+
+  .bdc-field input.invalid,
+  .bdc-field select.invalid {
+    border-color: var(--error);
+  }
+
+  .bdc-field-error {
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 14px;
+  }
+
+  .bdc-divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  .bdc-family-toggle {
+    background: transparent;
+    border: 1px dashed var(--orange);
+    color: var(--brown-dark);
+    width: 100%;
+    padding: 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-family: inherit;
+    margin-bottom: 18px;
+  }
+  .bdc-family-toggle:hover {
+    background: rgba(230, 139, 60, 0.08);
+  }
+
+  .bdc-family-list { display: none; }
+  .bdc-family-list.open { display: block; }
+
+  .bdc-family-entry {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+
+  .bdc-family-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .bdc-family-header h4 {
+    margin: 0;
+    color: var(--brown-dark);
+    font-family: 'Tenor Sans', serif;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .bdc-family-remove {
+    background: transparent;
+    border: none;
+    color: var(--error);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-family: inherit;
+  }
+
+  .bdc-add-family {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--brown-dark);
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    margin-bottom: 18px;
+  }
+  .bdc-add-family:hover:not(:disabled) {
+    background: var(--cream);
+    border-color: var(--orange);
+  }
+  .bdc-add-family:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .bdc-submit {
+    background: var(--orange);
+    color: #fff;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    box-shadow: 0 4px 12px rgba(230, 139, 60, 0.3);
+  }
+  .bdc-submit:hover:not(:disabled) {
+    background: var(--orange-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(230, 139, 60, 0.4);
+  }
+  .bdc-submit:disabled { opacity: 0.6; cursor: wait; }
+
+  .bdc-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: bdcSpin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes bdcSpin { to { transform: rotate(360deg); } }
+
+  .bdc-banner {
+    display: none;
+    padding: 12px 16px;
+    background: rgba(185, 74, 72, 0.1);
+    color: var(--error);
+    border-radius: 4px;
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+  .bdc-banner.visible { display: block; }
+
+  /* ===================== Success ===================== */
+  .bdc-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+  }
+  .bdc-success.visible { display: block; }
+
+  .bdc-success-cake {
+    font-size: 80px;
+    margin-bottom: 16px;
+    animation: bdcBounce 1s ease infinite alternate;
+  }
+  @keyframes bdcBounce {
+    from { transform: translateY(0) rotate(-3deg); }
+    to { transform: translateY(-8px) rotate(3deg); }
+  }
+
+  .bdc-success h2 {
+    font-family: 'Tenor Sans', serif;
+    color: var(--brown-dark);
+    margin: 0 0 12px;
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  .bdc-success p {
+    color: var(--text-light);
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
+
+  .bdc-life-sweet {
+    font-family: 'Tenor Sans', serif;
+    color: var(--orange);
+    font-size: 22px;
+    font-style: italic;
+    margin-top: 24px;
+  }
+
+  /* ===================== Footer ===================== */
+  .bdc-footer-note {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 12px;
+    padding: 24px 16px 48px;
+  }
+</style>
+
+<div class="bdc">
+
+  <!-- ============== HERO ============== -->
+  <section class="bdc-hero">
+    <span class="bdc-hero-emoji e1">&#127874;</span>
+    <span class="bdc-hero-emoji e2">&#127880;</span>
+    <span class="bdc-hero-emoji e3">&#129473;</span>
+    <span class="bdc-hero-emoji e4">&#127881;</span>
+
+    <img src="logo.png"
+         alt="Brown Sugar Bakery"
+         class="bdc-logo"
+         onerror="this.style.display='none'">
+    <h1>The Brown Sugar Bakery<br>Birthday Club</h1>
+    <p class="bdc-tagline">Because Everyone Has a Birthday &#127874;</p>
+    <a href="#bdc-form" class="bdc-hero-cta">Join the Club</a>
+  </section>
+
+  <!-- ============== BENEFITS ============== -->
+  <section class="bdc-benefits">
+    <h2>Sweet Perks for Every Member</h2>
+    <p class="bdc-section-sub">Join free and unlock birthday rewards for you and your loved ones, all year long.</p>
+    <div class="bdc-benefit-grid">
+      <div class="bdc-benefit-card">
+        <span class="bdc-benefit-icon">&#127873;</span>
+        <h3>30% Off Your Birthday</h3>
+        <p>A special discount just for you on your big day</p>
+      </div>
+      <div class="bdc-benefit-card">
+        <span class="bdc-benefit-icon">&#128149;</span>
+        <h3>20% Off for Family</h3>
+        <p>Your loved ones get their own birthday discount too</p>
+      </div>
+      <div class="bdc-benefit-card">
+        <span class="bdc-benefit-icon">&#129473;</span>
+        <h3>Free Birthday Cupcake</h3>
+        <p>Come in on your birthday for a cupcake on us</p>
+      </div>
+      <div class="bdc-benefit-card">
+        <span class="bdc-benefit-icon">&#11088;</span>
+        <h3>Members-Only Specials</h3>
+        <p>Exclusive products and deals only for Birthday Club members</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== HOW IT WORKS ============== -->
+  <section class="bdc-how">
+    <h2>How It Works</h2>
+    <div class="bdc-steps">
+      <div class="bdc-step">
+        <span class="bdc-step-num">1</span>
+        <h3>Join the Club</h3>
+        <p>Tell us your name, email, and birthday — that's all we need to start celebrating you.</p>
+      </div>
+      <div class="bdc-step">
+        <span class="bdc-step-num">2</span>
+        <h3>Add Your Family</h3>
+        <p>Add up to 4 family members so we can celebrate every birthday in your household.</p>
+      </div>
+      <div class="bdc-step">
+        <span class="bdc-step-num">3</span>
+        <h3>Get Sweet Rewards</h3>
+        <p>We'll send a special discount before each birthday. Order online or stop by.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SIGNUP FORM ============== -->
+  <section class="bdc-signup" id="bdc-form">
+    <div class="bdc-form-wrap">
+
+      <div id="bdc-form-view">
+        <h2>Join the Birthday Club</h2>
+        <p class="bdc-form-sub">Free to join. We'll celebrate you with a sweet treat on your big day.</p>
+
+        <div class="bdc-banner" id="bdcBanner"></div>
+
+        <div class="bdc-form-row">
+          <div class="bdc-field">
+            <label for="bdcFirst">First Name</label>
+            <input type="text" id="bdcFirst" placeholder="Jane" autocomplete="given-name" required>
+            <div class="bdc-field-error"></div>
+          </div>
+          <div class="bdc-field">
+            <label for="bdcLast">Last Name</label>
+            <input type="text" id="bdcLast" placeholder="Doe" autocomplete="family-name" required>
+            <div class="bdc-field-error"></div>
+          </div>
+        </div>
+
+        <div class="bdc-field">
+          <label for="bdcEmail">Email</label>
+          <input type="email" id="bdcEmail" placeholder="jane@example.com" autocomplete="email" required>
+          <div class="bdc-field-error"></div>
+        </div>
+
+        <div class="bdc-field">
+          <label for="bdcBirthday">Your Birthday</label>
+          <input type="date" id="bdcBirthday" required>
+          <div class="bdc-field-error"></div>
+        </div>
+
+        <hr class="bdc-divider">
+
+        <button type="button" class="bdc-family-toggle" id="bdcFamilyToggle">
+          + Add family members for their own birthday perks
+        </button>
+
+        <div class="bdc-family-list" id="bdcFamilyList"></div>
+        <button type="button" class="bdc-add-family" id="bdcAddFamily" style="display:none;">+ Add Another Family Member</button>
+
+        <button type="button" class="bdc-submit" id="bdcSubmit">Join the Club</button>
+      </div>
+
+      <div class="bdc-success" id="bdc-success-view">
+        <div class="bdc-success-cake">&#127874;</div>
+        <h2>Welcome to the Club!</h2>
+        <p>You're all set! We'll send a special birthday discount before each birthday in your family.</p>
+        <p class="bdc-life-sweet">Life is Sweet</p>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="bdc-footer-note">Brown Sugar Bakery &middot; Made in Chicago Since 2004</p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<script>
+(function() {
+  // ===== Configuration (matches existing app.js) =====
+  var SUPABASE_URL = 'https://htuthqzhqqskcjijnyxu.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0dXRocXpocXFza2NqaWpueXh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4Nzc2MTgsImV4cCI6MjA4OTQ1MzYxOH0.4uHitOU7Li_DBzVZwqEkmVaae-nqmYTZZWn7HZxX_-g';
+
+  var MAX_FAMILY = 4;
+  var familyCount = 0;
+  var db = null;
+
+  function getSupabase() {
+    if (!db && window.supabase) {
+      db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+    return db;
+  }
+
+  // ===== UTM capture =====
+  function captureUtm() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var utm = {};
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k) {
+        var v = params.get(k);
+        if (v) utm[k] = v;
+      });
+      if (Object.keys(utm).length) {
+        sessionStorage.setItem('bdc_utm', JSON.stringify(utm));
+      }
+    } catch(e) {}
+  }
+  function getUtm() {
+    try {
+      var raw = sessionStorage.getItem('bdc_utm');
+      return raw ? JSON.parse(raw) : null;
+    } catch(e) { return null; }
+  }
+  captureUtm();
+
+  // ===== Helpers =====
+  function $(id) { return document.getElementById(id); }
+  function showBanner(msg) {
+    var b = $('bdcBanner');
+    b.textContent = msg;
+    b.classList.add('visible');
+    b.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function clearErrors() {
+    document.querySelectorAll('.bdc .invalid').forEach(function(el) { el.classList.remove('invalid'); });
+    document.querySelectorAll('.bdc-field-error').forEach(function(el) { el.textContent = ''; });
+    $('bdcBanner').classList.remove('visible');
+  }
+  function setFieldError(input, msg) {
+    input.classList.add('invalid');
+    var err = input.parentElement.querySelector('.bdc-field-error');
+    if (err) err.textContent = msg;
+  }
+  function isValidEmail(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); }
+  function isValidDate(s) {
+    if (!s) return false;
+    var d = new Date(s);
+    return !isNaN(d.getTime());
+  }
+
+  // ===== Family member dynamic UI =====
+  function renderFamilyEntry(idx) {
+    return ''+
+      '<div class="bdc-family-entry" data-idx="'+idx+'">'+
+        '<div class="bdc-family-header">'+
+          '<h4>Family Member <span class="bdc-fnum">'+idx+'</span></h4>'+
+          '<button type="button" class="bdc-family-remove" data-remove="'+idx+'">Remove</button>'+
+        '</div>'+
+        '<div class="bdc-form-row">'+
+          '<div class="bdc-field">'+
+            '<label>First Name</label>'+
+            '<input type="text" class="bdc-fam-first" placeholder="Name">'+
+            '<div class="bdc-field-error"></div>'+
+          '</div>'+
+          '<div class="bdc-field">'+
+            '<label>Email (optional)</label>'+
+            '<input type="email" class="bdc-fam-email" placeholder="email@example.com">'+
+            '<div class="bdc-field-error"></div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="bdc-form-row">'+
+          '<div class="bdc-field">'+
+            '<label>Birthday</label>'+
+            '<input type="date" class="bdc-fam-birthday">'+
+            '<div class="bdc-field-error"></div>'+
+          '</div>'+
+          '<div class="bdc-field">'+
+            '<label>Relationship</label>'+
+            '<select class="bdc-fam-rel">'+
+              '<option value="">Select...</option>'+
+              '<option value="spouse">Spouse</option>'+
+              '<option value="child">Child</option>'+
+              '<option value="parent">Parent</option>'+
+              '<option value="sibling">Sibling</option>'+
+              '<option value="other">Other</option>'+
+            '</select>'+
+            '<div class="bdc-field-error"></div>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+  }
+
+  function addFamilyMember() {
+    if (familyCount >= MAX_FAMILY) return;
+    familyCount++;
+    var list = $('bdcFamilyList');
+    list.insertAdjacentHTML('beforeend', renderFamilyEntry(familyCount));
+    list.classList.add('open');
+    $('bdcAddFamily').style.display = 'block';
+    updateAddBtn();
+    renumberFamily();
+  }
+
+  function removeFamilyMember(idx) {
+    var entry = document.querySelector('.bdc-family-entry[data-idx="'+idx+'"]');
+    if (entry) entry.remove();
+    familyCount = document.querySelectorAll('.bdc-family-entry').length;
+    if (familyCount === 0) {
+      $('bdcFamilyList').classList.remove('open');
+      $('bdcAddFamily').style.display = 'none';
+      $('bdcFamilyToggle').style.display = 'block';
+    }
+    updateAddBtn();
+    renumberFamily();
+  }
+
+  function renumberFamily() {
+    document.querySelectorAll('.bdc-family-entry').forEach(function(entry, i) {
+      var n = i + 1;
+      entry.dataset.idx = n;
+      entry.querySelector('.bdc-fnum').textContent = n;
+      entry.querySelector('.bdc-family-remove').setAttribute('data-remove', n);
+    });
+  }
+
+  function updateAddBtn() {
+    var btn = $('bdcAddFamily');
+    btn.disabled = familyCount >= MAX_FAMILY;
+    btn.textContent = familyCount >= MAX_FAMILY ? 'Maximum 4 family members' : '+ Add Another Family Member';
+  }
+
+  // ===== Validation =====
+  function validate() {
+    clearErrors();
+    var ok = true;
+    var first = $('bdcFirst'), last = $('bdcLast'), email = $('bdcEmail'), bday = $('bdcBirthday');
+
+    if (!first.value.trim()) { setFieldError(first, 'First name is required'); ok = false; }
+    if (!last.value.trim())  { setFieldError(last, 'Last name is required'); ok = false; }
+    if (!email.value.trim() || !isValidEmail(email.value.trim())) {
+      setFieldError(email, 'Please enter a valid email'); ok = false;
+    }
+    if (!isValidDate(bday.value)) { setFieldError(bday, 'Please enter your birthday'); ok = false; }
+
+    document.querySelectorAll('.bdc-family-entry').forEach(function(entry) {
+      var f = entry.querySelector('.bdc-fam-first');
+      var em = entry.querySelector('.bdc-fam-email');
+      var b = entry.querySelector('.bdc-fam-birthday');
+      var r = entry.querySelector('.bdc-fam-rel');
+
+      if (!f.value.trim()) { setFieldError(f, 'First name is required'); ok = false; }
+      if (em.value.trim() && !isValidEmail(em.value.trim())) {
+        setFieldError(em, 'Invalid email'); ok = false;
+      }
+      if (!isValidDate(b.value)) { setFieldError(b, 'Birthday is required'); ok = false; }
+      if (!r.value) { setFieldError(r, 'Pick one'); ok = false; }
+    });
+
+    return ok;
+  }
+
+  // ===== Submit =====
+  async function submit() {
+    if (!validate()) return;
+    var supabase = getSupabase();
+    if (!supabase) {
+      showBanner('Could not connect. Please refresh and try again.');
+      return;
+    }
+
+    var btn = $('bdcSubmit');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="bdc-spinner"></span>Joining...';
+
+    try {
+      var memberData = {
+        first_name: $('bdcFirst').value.trim(),
+        last_name: $('bdcLast').value.trim(),
+        email: $('bdcEmail').value.trim().toLowerCase(),
+        birthday: $('bdcBirthday').value
+      };
+
+      // Attach UTM params if present
+      var utm = getUtm();
+      if (utm) memberData.utm = utm;
+
+      var ins = await supabase.from('members').insert(memberData).select().single();
+      if (ins.error) {
+        if (ins.error.code === '23505') throw new Error('This email is already in the Birthday Club. Welcome back!');
+        throw ins.error;
+      }
+      var member = ins.data;
+
+      var entries = document.querySelectorAll('.bdc-family-entry');
+      if (entries.length > 0) {
+        var familyData = [];
+        entries.forEach(function(entry) {
+          familyData.push({
+            member_id: member.id,
+            first_name: entry.querySelector('.bdc-fam-first').value.trim(),
+            email: entry.querySelector('.bdc-fam-email').value.trim().toLowerCase() || null,
+            birthday: entry.querySelector('.bdc-fam-birthday').value,
+            relationship: entry.querySelector('.bdc-fam-rel').value
+          });
+        });
+        var fam = await supabase.from('family_members').insert(familyData);
+        if (fam.error) throw fam.error;
+      }
+
+      // Fire welcome email (fire-and-forget, same pattern as existing app.js)
+      fetch(SUPABASE_URL + '/functions/v1/send-welcome-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ member_id: member.id })
+      }).catch(function(){});
+
+      // Show success
+      $('bdc-form-view').style.display = 'none';
+      var s = $('bdc-success-view');
+      s.classList.add('visible');
+      s.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Optional: track conversion in analytics if Shopify analytics is present
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: 'birthday_club_signup', email: memberData.email });
+      }
+
+    } catch (err) {
+      showBanner(err.message || 'Something went wrong. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Join the Club';
+    }
+  }
+
+  // ===== Wire up =====
+  document.addEventListener('DOMContentLoaded', function() {
+    $('bdcFamilyToggle').addEventListener('click', function() {
+      this.style.display = 'none';
+      addFamilyMember();
+    });
+    $('bdcAddFamily').addEventListener('click', addFamilyMember);
+    $('bdcFamilyList').addEventListener('click', function(e) {
+      var idx = e.target.getAttribute('data-remove');
+      if (idx) removeFamilyMember(parseInt(idx, 10));
+    });
+    $('bdcSubmit').addEventListener('click', submit);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,887 @@
+{{ 'section-birthday-club.css' | asset_url | stylesheet_tag }}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Tenor+Sans&display=swap" rel="stylesheet">
+
+{%- assign sid = section.id -%}
+{%- assign has_hero_image = false -%}
+{%- if section.settings.hero_image != blank -%}
+  {%- assign has_hero_image = true -%}
+{%- endif -%}
+
+<div class="bdc" id="bdc-{{ sid }}">
+
+  <!-- ============== HERO ============== -->
+  <section class="bdc-hero{% if has_hero_image %} bdc-hero--has-image{% endif %}"
+    {% if has_hero_image %}
+      style="background-image: url('{{ section.settings.hero_image | image_url: width: 2000 }}'); min-height: {{ section.settings.hero_min_height | default: 550 }}px;"
+    {% endif %}
+    >
+    {%- if has_hero_image -%}
+      <div class="bdc-hero-overlay" style="
+        opacity: {{ section.settings.overlay_opacity | default: 45 | divided_by: 100.0 }};
+        background-color: {% case section.settings.overlay_color %}{% when 'warm' %}#5b2512{% when 'black' %}#000000{% else %}#3b1a0a{% endcase %};
+      "></div>
+    {%- endif -%}
+
+    {%- unless has_hero_image -%}
+      <span class="bdc-hero-emoji e1">&#127874;</span>
+      <span class="bdc-hero-emoji e2">&#127880;</span>
+      <span class="bdc-hero-emoji e3">&#129473;</span>
+      <span class="bdc-hero-emoji e4">&#127881;</span>
+    {%- endunless -%}
+
+    <div class="bdc-hero-content">
+      {% if section.settings.logo != blank %}
+        <img src="{{ section.settings.logo | image_url: width: 200 }}"
+             alt="{{ shop.name }}"
+             class="bdc-logo">
+      {% endif %}
+
+      {% if section.settings.hero_title != blank %}
+        <h1 {% if has_hero_image and section.settings.hero_heading_color %}style="color: {{ section.settings.hero_heading_color }};"{% endif %}>{{ section.settings.hero_title }}</h1>
+      {% endif %}
+
+      {% if section.settings.hero_tagline != blank %}
+        <p class="bdc-tagline" {% if has_hero_image and section.settings.hero_tagline_color %}style="color: {{ section.settings.hero_tagline_color }};"{% endif %}>{{ section.settings.hero_tagline }}</p>
+      {% endif %}
+
+      <a href="#bdc-form-{{ sid }}" class="bdc-hero-cta"
+        {% if has_hero_image %}
+          style="background-color: {{ section.settings.hero_button_bg_color | default: '#ffffff' }}; color: {{ section.settings.hero_button_text_color | default: '#5b2512' }}; box-shadow: 0 4px 16px rgba(0,0,0,0.25);"
+        {% endif %}
+        >
+        {{ section.settings.hero_button_text | default: 'Join the Club' | escape }}
+      </a>
+    </div>
+  </section>
+
+  <!-- ============== BENEFITS ============== -->
+  {% if section.settings.show_benefits %}
+  <section class="bdc-benefits">
+    {% if section.settings.benefits_heading != blank %}
+      <h2>{{ section.settings.benefits_heading | escape }}</h2>
+    {% endif %}
+    {% if section.settings.benefits_subheading != blank %}
+      <p class="bdc-section-sub">{{ section.settings.benefits_subheading | escape }}</p>
+    {% endif %}
+    <div class="bdc-benefit-grid">
+      {% if section.settings.benefit_1 != blank %}
+        <div class="bdc-benefit-card">
+          <span class="bdc-benefit-icon">{{ section.settings.benefit_1_icon | default: '🎁' }}</span>
+          <h3>{{ section.settings.benefit_1 | escape }}</h3>
+          {% if section.settings.benefit_1_desc != blank %}
+            <p>{{ section.settings.benefit_1_desc | escape }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if section.settings.benefit_2 != blank %}
+        <div class="bdc-benefit-card">
+          <span class="bdc-benefit-icon">{{ section.settings.benefit_2_icon | default: '💝' }}</span>
+          <h3>{{ section.settings.benefit_2 | escape }}</h3>
+          {% if section.settings.benefit_2_desc != blank %}
+            <p>{{ section.settings.benefit_2_desc | escape }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if section.settings.benefit_3 != blank %}
+        <div class="bdc-benefit-card">
+          <span class="bdc-benefit-icon">{{ section.settings.benefit_3_icon | default: '🧁' }}</span>
+          <h3>{{ section.settings.benefit_3 | escape }}</h3>
+          {% if section.settings.benefit_3_desc != blank %}
+            <p>{{ section.settings.benefit_3_desc | escape }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if section.settings.benefit_4 != blank %}
+        <div class="bdc-benefit-card">
+          <span class="bdc-benefit-icon">{{ section.settings.benefit_4_icon | default: '⭐' }}</span>
+          <h3>{{ section.settings.benefit_4 | escape }}</h3>
+          {% if section.settings.benefit_4_desc != blank %}
+            <p>{{ section.settings.benefit_4_desc | escape }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ============== HOW IT WORKS ============== -->
+  {% if section.settings.show_how_it_works %}
+  <section class="bdc-how">
+    <h2>{{ section.settings.how_heading | default: 'How It Works' | escape }}</h2>
+    <div class="bdc-steps">
+      <div class="bdc-step">
+        <span class="bdc-step-num">1</span>
+        <h3>{{ section.settings.step_1_title | default: 'Join the Club' | escape }}</h3>
+        <p>{{ section.settings.step_1_text | default: "Tell us your name, email, and birthday — that's all we need to start celebrating you." | escape }}</p>
+      </div>
+      <div class="bdc-step">
+        <span class="bdc-step-num">2</span>
+        <h3>{{ section.settings.step_2_title | default: 'Add Your Family' | escape }}</h3>
+        <p>{{ section.settings.step_2_text | default: 'Add up to 4 family members so we can celebrate every birthday in your household.' | escape }}</p>
+      </div>
+      <div class="bdc-step">
+        <span class="bdc-step-num">3</span>
+        <h3>{{ section.settings.step_3_title | default: 'Get Sweet Rewards' | escape }}</h3>
+        <p>{{ section.settings.step_3_text | default: "We'll send a special discount before each birthday. Order online or stop by." | escape }}</p>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ============== SIGNUP FORM ============== -->
+  <section class="bdc-signup" id="bdc-form-{{ sid }}">
+    <div class="bdc-form-wrap">
+
+      <div class="bdc-form-view" id="bdc-form-view-{{ sid }}">
+        {% if section.settings.form_title != blank %}
+          <h2>{{ section.settings.form_title | escape }}</h2>
+        {% endif %}
+        {% if section.settings.form_subtitle != blank %}
+          <p class="bdc-form-sub">{{ section.settings.form_subtitle | escape }}</p>
+        {% endif %}
+
+        <div class="bdc-banner" id="bdc-banner-{{ sid }}"></div>
+
+        <div class="bdc-form-row">
+          <div class="bdc-field">
+            <label for="bdc-first-{{ sid }}">First Name</label>
+            <input type="text" id="bdc-first-{{ sid }}" data-bdc="first" placeholder="Jane" autocomplete="given-name" required>
+            <div class="bdc-field-error"></div>
+          </div>
+          <div class="bdc-field">
+            <label for="bdc-last-{{ sid }}">Last Name</label>
+            <input type="text" id="bdc-last-{{ sid }}" data-bdc="last" placeholder="Doe" autocomplete="family-name" required>
+            <div class="bdc-field-error"></div>
+          </div>
+        </div>
+
+        <div class="bdc-field">
+          <label for="bdc-email-{{ sid }}">Email</label>
+          <input type="email" id="bdc-email-{{ sid }}" data-bdc="email" placeholder="jane@example.com" autocomplete="email" required>
+          <div class="bdc-field-error"></div>
+        </div>
+
+        <div class="bdc-field">
+          <label for="bdc-birthday-{{ sid }}">Your Birthday</label>
+          <input type="date" id="bdc-birthday-{{ sid }}" data-bdc="birthday" required>
+          <div class="bdc-field-error"></div>
+        </div>
+
+        <hr class="bdc-divider">
+
+        <button type="button" class="bdc-family-toggle" data-bdc-action="show-family">
+          {{ section.settings.family_toggle_text | default: '+ Add family members for their own birthday perks' | escape }}
+        </button>
+
+        <div class="bdc-family-list" id="bdc-family-list-{{ sid }}"></div>
+        <button type="button" class="bdc-add-family" data-bdc-action="add-family" style="display:none;">+ Add Another Family Member</button>
+
+        <button type="button" class="bdc-submit" data-bdc-action="submit">
+          {{ section.settings.button_text | default: 'Join the Club' | escape }}
+        </button>
+
+        {% if section.settings.fine_print != blank %}
+          <p class="bdc-fine-print">{{ section.settings.fine_print | escape }}</p>
+        {% endif %}
+      </div>
+
+      <div class="bdc-success-overlay" id="bdc-success-overlay-{{ sid }}">
+        <div class="bdc-confetti-container" id="bdc-confetti-{{ sid }}"></div>
+        <div class="bdc-success-modal">
+          <button type="button" class="bdc-success-close" data-bdc-action="close-success">&times;</button>
+          <div class="bdc-success-burst">
+            <span class="bdc-burst-emoji b1">&#127881;</span>
+            <span class="bdc-burst-emoji b2">&#127874;</span>
+            <span class="bdc-burst-emoji b3">&#127880;</span>
+            <span class="bdc-burst-emoji b4">&#129473;</span>
+            <span class="bdc-burst-emoji b5">&#127873;</span>
+            <span class="bdc-burst-emoji b6">&#127882;</span>
+          </div>
+          {% if section.settings.logo != blank %}
+            <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" class="bdc-success-logo">
+          {% else %}
+            <div class="bdc-success-cake">&#127874;</div>
+          {% endif %}
+          <h2>{{ section.settings.success_title | default: 'Welcome to the Club!' | escape }}</h2>
+          {% if section.settings.success_message != blank %}
+            {{ section.settings.success_message }}
+          {% else %}
+            <p>You're all set! We'll send a special birthday discount before each birthday in your family.</p>
+          {% endif %}
+          <div class="bdc-success-sprinkles">
+            <span>&#127880;</span><span>&#11088;</span><span>&#129473;</span><span>&#127881;</span><span>&#127873;</span>
+          </div>
+          {% if section.settings.success_button_url != blank %}
+            <a href="{{ section.settings.success_button_url }}" class="bdc-success-btn">
+              {{ section.settings.success_button_text | default: 'Shop Birthday Cakes' | escape }}
+            </a>
+          {% else %}
+            <a href="/collections/all" class="bdc-success-btn">
+              {{ section.settings.success_button_text | default: 'Shop Birthday Cakes' | escape }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <p class="bdc-footer-note">Brown Sugar Bakery &middot; Made in Chicago Since 2004</p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<script>
+(function() {
+  var SECTION_ID = {{ sid | json }};
+  var MAX_FAMILY = {{ section.settings.max_family | default: 4 }};
+  var SUPABASE_URL = {{ section.settings.supabase_url | default: 'https://avsrrrgliekawvcvdcye.supabase.co' | json }};
+  var SUPABASE_ANON_KEY = {{ section.settings.supabase_anon_key | default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2c3JycmdsaWVrYXd2Y3ZkY3llIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNzYxOTksImV4cCI6MjA5MTk1MjE5OX0.ggddWe1Gec86fsyl-QI_2FGntUEvuEOeqNkajw6aIdo' | json }};
+  var BUTTON_TEXT = {{ section.settings.button_text | default: 'Join the Club' | json }};
+
+  var familyCount = 0;
+  var db = null;
+
+  function getSupabase() {
+    if (!db && window.supabase) db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    return db;
+  }
+
+  // UTM capture
+  (function() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var utm = {};
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){
+        var v = params.get(k); if (v) utm[k] = v;
+      });
+      if (Object.keys(utm).length) sessionStorage.setItem('bdc_utm', JSON.stringify(utm));
+    } catch(e) {}
+  })();
+  function getUtm() {
+    try { var r = sessionStorage.getItem('bdc_utm'); return r ? JSON.parse(r) : null; } catch(e) { return null; }
+  }
+
+  // DOM scope
+  var root = document.getElementById('bdc-' + SECTION_ID);
+  if (!root) return;
+  function $(sel) { return root.querySelector(sel); }
+  function $$(sel) { return root.querySelectorAll(sel); }
+  function field(name) { return $('[data-bdc="' + name + '"]'); }
+
+  function showBanner(msg) {
+    var b = document.getElementById('bdc-banner-' + SECTION_ID);
+    b.textContent = msg; b.classList.add('visible');
+    b.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function clearErrors() {
+    $$('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+    $$('.bdc-field-error').forEach(function(el){ el.textContent = ''; });
+    var b = document.getElementById('bdc-banner-' + SECTION_ID);
+    if (b) b.classList.remove('visible');
+  }
+  function setFieldError(input, msg) {
+    input.classList.add('invalid');
+    var err = input.parentElement.querySelector('.bdc-field-error');
+    if (err) err.textContent = msg;
+  }
+  function isValidEmail(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); }
+  function isValidDate(s) { if (!s) return false; return !isNaN(new Date(s).getTime()); }
+
+  // Family UI
+  function renderFamilyEntry(idx) {
+    return '' +
+      '<div class="bdc-family-entry" data-idx="' + idx + '">' +
+        '<div class="bdc-family-header">' +
+          '<h4>Family Member <span class="bdc-fnum">' + idx + '</span></h4>' +
+          '<button type="button" class="bdc-family-remove" data-remove="' + idx + '">Remove</button>' +
+        '</div>' +
+        '<div class="bdc-form-row">' +
+          '<div class="bdc-field"><label>First Name</label><input type="text" class="bdc-fam-first" placeholder="Name"><div class="bdc-field-error"></div></div>' +
+          '<div class="bdc-field"><label>Email (optional)</label><input type="email" class="bdc-fam-email" placeholder="email@example.com"><div class="bdc-field-error"></div></div>' +
+        '</div>' +
+        '<div class="bdc-form-row">' +
+          '<div class="bdc-field"><label>Birthday</label><input type="date" class="bdc-fam-birthday"><div class="bdc-field-error"></div></div>' +
+          '<div class="bdc-field"><label>Relationship</label><select class="bdc-fam-rel"><option value="">Select...</option><option value="spouse">Spouse</option><option value="child">Child</option><option value="parent">Parent</option><option value="sibling">Sibling</option><option value="other">Other</option></select><div class="bdc-field-error"></div></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function addFamilyMember() {
+    if (familyCount >= MAX_FAMILY) return;
+    familyCount++;
+    var list = document.getElementById('bdc-family-list-' + SECTION_ID);
+    list.insertAdjacentHTML('beforeend', renderFamilyEntry(familyCount));
+    list.classList.add('open');
+    $('[data-bdc-action="add-family"]').style.display = 'block';
+    var toggle = $('[data-bdc-action="show-family"]');
+    if (toggle) toggle.style.display = 'none';
+    updateAddBtn();
+  }
+
+  function removeFamilyMember(idx) {
+    var entry = $('.bdc-family-entry[data-idx="' + idx + '"]');
+    if (entry) entry.remove();
+    familyCount = $$('.bdc-family-entry').length;
+    if (familyCount === 0) {
+      document.getElementById('bdc-family-list-' + SECTION_ID).classList.remove('open');
+      $('[data-bdc-action="add-family"]').style.display = 'none';
+      $('[data-bdc-action="show-family"]').style.display = 'block';
+    }
+    updateAddBtn();
+    $$('.bdc-family-entry').forEach(function(entry, i) {
+      var n = i + 1;
+      entry.dataset.idx = n;
+      entry.querySelector('.bdc-fnum').textContent = n;
+      entry.querySelector('.bdc-family-remove').setAttribute('data-remove', n);
+    });
+  }
+
+  function updateAddBtn() {
+    var btn = $('[data-bdc-action="add-family"]');
+    btn.disabled = familyCount >= MAX_FAMILY;
+    btn.textContent = familyCount >= MAX_FAMILY ? 'Maximum ' + MAX_FAMILY + ' family members' : '+ Add Another Family Member';
+  }
+
+  // Validation
+  function validate() {
+    clearErrors();
+    var ok = true;
+    var first = field('first'), last = field('last'), email = field('email'), bday = field('birthday');
+    if (!first.value.trim()) { setFieldError(first, 'First name is required'); ok = false; }
+    if (!last.value.trim())  { setFieldError(last, 'Last name is required'); ok = false; }
+    if (!email.value.trim() || !isValidEmail(email.value.trim())) { setFieldError(email, 'Please enter a valid email'); ok = false; }
+    if (!isValidDate(bday.value)) { setFieldError(bday, 'Please enter your birthday'); ok = false; }
+
+    $$('.bdc-family-entry').forEach(function(entry) {
+      var f = entry.querySelector('.bdc-fam-first');
+      var em = entry.querySelector('.bdc-fam-email');
+      var b = entry.querySelector('.bdc-fam-birthday');
+      var r = entry.querySelector('.bdc-fam-rel');
+      if (!f.value.trim()) { setFieldError(f, 'First name is required'); ok = false; }
+      if (em.value.trim() && !isValidEmail(em.value.trim())) { setFieldError(em, 'Invalid email'); ok = false; }
+      if (!isValidDate(b.value)) { setFieldError(b, 'Birthday is required'); ok = false; }
+      if (!r.value) { setFieldError(r, 'Pick one'); ok = false; }
+    });
+    return ok;
+  }
+
+  // Timeout helper — prevents infinite hang if Supabase is down/paused
+  function withTimeout(promise, ms) {
+    return Promise.race([
+      promise,
+      new Promise(function(_, reject) {
+        setTimeout(function() { reject(new Error('Request timed out. The server may be temporarily unavailable — please try again in a moment.')); }, ms);
+      })
+    ]);
+  }
+
+  // Submit
+  async function submit() {
+    if (!validate()) return;
+    var supabase = getSupabase();
+    var btn = $('[data-bdc-action="submit"]');
+
+    if (!supabase) {
+      showBanner('Could not connect — please refresh the page and try again.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="bdc-spinner"></span>Joining...';
+
+    try {
+      var memberData = {
+        first_name: field('first').value.trim(),
+        last_name:  field('last').value.trim(),
+        email:      field('email').value.trim().toLowerCase(),
+        birthday:   field('birthday').value
+      };
+      var utm = getUtm();
+      if (utm) memberData.utm = utm;
+
+      var ins = await withTimeout(
+        supabase.from('members').insert(memberData).select().single(),
+        15000
+      );
+      if (ins.error) {
+        if (ins.error.code === '23505') throw new Error('This email is already in the Birthday Club. Welcome back!');
+        throw new Error(ins.error.message || 'Could not save your information.');
+      }
+      var member = ins.data;
+
+      var entries = $$('.bdc-family-entry');
+      if (entries.length > 0) {
+        var familyData = [];
+        entries.forEach(function(entry) {
+          familyData.push({
+            member_id: member.id,
+            first_name: entry.querySelector('.bdc-fam-first').value.trim(),
+            email: entry.querySelector('.bdc-fam-email').value.trim().toLowerCase() || null,
+            birthday: entry.querySelector('.bdc-fam-birthday').value,
+            relationship: entry.querySelector('.bdc-fam-rel').value
+          });
+        });
+        var fam = await withTimeout(
+          supabase.from('family_members').insert(familyData),
+          15000
+        );
+        if (fam.error) throw new Error(fam.error.message || 'Could not save family members.');
+      }
+
+      // Fire welcome email (fire-and-forget)
+      fetch(SUPABASE_URL + '/functions/v1/send-welcome-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ member_id: member.id })
+      }).catch(function(){});
+
+      // Show success popup
+      document.getElementById('bdc-form-view-' + SECTION_ID).style.display = 'none';
+      var overlay = document.getElementById('bdc-success-overlay-' + SECTION_ID);
+      overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+      launchConfetti();
+
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: 'birthday_club_signup', email: memberData.email });
+      }
+    } catch (err) {
+      console.error('[Birthday Club] Submit error:', err);
+      showBanner(err.message || 'Something went wrong. Please try again.');
+      btn.disabled = false;
+      btn.textContent = BUTTON_TEXT;
+    }
+  }
+
+  // Confetti
+  var CONFETTI_COLORS = ['#e68b3c','#5b2512','#f4c542','#e85d75','#6bc5d2','#a8e06c','#d4a0e8','#ff6b9d','#ffd93d','#fff'];
+  var PARTY_EMOJI = ['🎂','🧁','🎁','🎈','🎉','🎊','⭐','✨','🍰','💛','🎀','🥳'];
+
+  function launchConfetti() {
+    var container = document.getElementById('bdc-confetti-' + SECTION_ID);
+    if (!container) return;
+    container.innerHTML = '';
+
+    function burst(count, delay) {
+      setTimeout(function() {
+        for (var i = 0; i < count; i++) {
+          var piece = document.createElement('div');
+          piece.className = 'bdc-confetti-piece';
+          var left = Math.random() * 100;
+          var d = Math.random() * 1.2;
+          var dur = 2.5 + Math.random() * 2;
+          var drift = (Math.random() - 0.5) * 200;
+          var spin = 360 + Math.random() * 720;
+          piece.style.left = left + '%';
+          piece.style.animationDelay = d + 's';
+          piece.style.animationDuration = dur + 's';
+          piece.style.setProperty('--drift', drift + 'px');
+          piece.style.setProperty('--spin', spin + 'deg');
+
+          if (Math.random() > 0.55) {
+            piece.textContent = PARTY_EMOJI[Math.floor(Math.random() * PARTY_EMOJI.length)];
+            piece.style.fontSize = (16 + Math.random() * 20) + 'px';
+            piece.style.background = 'none';
+            piece.style.width = 'auto';
+            piece.style.height = 'auto';
+          } else {
+            var color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+            var size = 6 + Math.random() * 10;
+            piece.style.width = size + 'px';
+            piece.style.height = size + 'px';
+            piece.style.backgroundColor = color;
+            if (Math.random() > 0.5) piece.style.borderRadius = '50%';
+          }
+          container.appendChild(piece);
+        }
+      }, delay);
+    }
+
+    burst(100, 0);
+    burst(60, 600);
+    burst(40, 1400);
+  }
+
+  function closeSuccess() {
+    var overlay = document.getElementById('bdc-success-overlay-' + SECTION_ID);
+    if (overlay) overlay.classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+
+  // Wire up
+  function init() {
+    root.addEventListener('click', function(e) {
+      var action = e.target.getAttribute('data-bdc-action');
+      var remove = e.target.getAttribute('data-remove');
+      if (action === 'show-family' || action === 'add-family') addFamilyMember();
+      else if (action === 'submit') submit();
+      else if (action === 'close-success') closeSuccess();
+      else if (remove) removeFamilyMember(parseInt(remove, 10));
+    });
+    // Close overlay on background click
+    var overlay = document.getElementById('bdc-success-overlay-' + SECTION_ID);
+    if (overlay) overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeSuccess();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Birthday Club",
+  "class": "homepage-section--birthday-club-wrapper",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image",
+      "info": "Recommended: 2000×900px or larger. When set, a color overlay is applied so text stays readable. Leave empty for the default cream background with floating emojis."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay darkness",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 45,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "warm",
+      "options": [
+        { "value": "dark", "label": "Dark brown" },
+        { "value": "warm", "label": "Warm brown (bakery tone)" },
+        { "value": "black", "label": "Black" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "hero_heading_color",
+      "label": "Heading color",
+      "default": "#ffffff",
+      "info": "White works best on dark images."
+    },
+    {
+      "type": "color",
+      "id": "hero_tagline_color",
+      "label": "Tagline color",
+      "default": "#f5d9b0",
+      "info": "A warm cream stands out on most bakery images."
+    },
+    {
+      "type": "color",
+      "id": "hero_button_bg_color",
+      "label": "Button background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hero_button_text_color",
+      "label": "Button text color",
+      "default": "#5b2512"
+    },
+    {
+      "type": "range",
+      "id": "hero_min_height",
+      "label": "Hero minimum height",
+      "min": 400,
+      "max": 900,
+      "step": 50,
+      "default": 550,
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (circular)",
+      "info": "Displayed in the hero. Recommended: 200×200px square or round."
+    },
+    {
+      "type": "html",
+      "id": "hero_title",
+      "label": "Hero heading",
+      "default": "The Brown Sugar Bakery<br>Birthday Club",
+      "info": "HTML allowed for line breaks. Use <br> for a line break."
+    },
+    {
+      "type": "text",
+      "id": "hero_tagline",
+      "label": "Tagline",
+      "default": "Because Everyone Has a Birthday 🎂"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_text",
+      "label": "Hero button text",
+      "default": "Join the Club"
+    },
+    {
+      "type": "header",
+      "content": "Benefits section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show benefits section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Benefits heading",
+      "default": "Sweet Perks for Every Member"
+    },
+    {
+      "type": "text",
+      "id": "benefits_subheading",
+      "label": "Benefits subheading",
+      "default": "Join free and unlock birthday rewards for you and your loved ones, all year long."
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_icon",
+      "label": "Benefit 1 icon (emoji)",
+      "default": "🎁"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1 title",
+      "default": "30% Off Your Birthday"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_desc",
+      "label": "Benefit 1 description",
+      "default": "A special discount just for you on your big day"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_icon",
+      "label": "Benefit 2 icon",
+      "default": "💝"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2 title",
+      "default": "20% Off for Family"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_desc",
+      "label": "Benefit 2 description",
+      "default": "Your loved ones get their own birthday discount too"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_icon",
+      "label": "Benefit 3 icon",
+      "default": "🧁"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3 title",
+      "default": "Free Birthday Cupcake"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_desc",
+      "label": "Benefit 3 description",
+      "default": "Come in on your birthday for a cupcake on us"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4_icon",
+      "label": "Benefit 4 icon",
+      "default": "⭐"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefit 4 title",
+      "default": "Members-Only Specials"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4_desc",
+      "label": "Benefit 4 description",
+      "default": "Exclusive products and deals only for Birthday Club members"
+    },
+    {
+      "type": "header",
+      "content": "How It Works section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_how_it_works",
+      "label": "Show How It Works section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "how_heading",
+      "label": "Section heading",
+      "default": "How It Works"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Step 1 title",
+      "default": "Join the Club"
+    },
+    {
+      "type": "text",
+      "id": "step_1_text",
+      "label": "Step 1 text",
+      "default": "Tell us your name, email, and birthday — that's all we need to start celebrating you."
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Step 2 title",
+      "default": "Add Your Family"
+    },
+    {
+      "type": "text",
+      "id": "step_2_text",
+      "label": "Step 2 text",
+      "default": "Add up to 4 family members so we can celebrate every birthday in your household."
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Step 3 title",
+      "default": "Get Sweet Rewards"
+    },
+    {
+      "type": "text",
+      "id": "step_3_text",
+      "label": "Step 3 text",
+      "default": "We'll send a special discount before each birthday. Order online or stop by."
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form heading",
+      "default": "Join the Birthday Club"
+    },
+    {
+      "type": "text",
+      "id": "form_subtitle",
+      "label": "Form subtitle",
+      "default": "Free to join. We'll celebrate you with a sweet treat on your big day."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Submit button text",
+      "default": "Join the Club"
+    },
+    {
+      "type": "text",
+      "id": "family_toggle_text",
+      "label": "Family toggle text",
+      "default": "+ Add family members for their own birthday perks"
+    },
+    {
+      "type": "range",
+      "id": "max_family",
+      "label": "Max family members",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "fine_print",
+      "label": "Fine print",
+      "default": "Free to join. Unsubscribe anytime."
+    },
+    {
+      "type": "header",
+      "content": "Success state"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Success title",
+      "default": "Welcome to the Club!"
+    },
+    {
+      "type": "richtext",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "<p>You're all set! We'll send a special birthday discount before each birthday in your family.</p>"
+    },
+    {
+      "type": "text",
+      "id": "success_button_text",
+      "label": "Success button text",
+      "default": "Shop Birthday Cakes"
+    },
+    {
+      "type": "url",
+      "id": "success_button_url",
+      "label": "Success button link",
+      "info": "Link to a collection, page, or any URL. Use the picker to select a collection."
+    },
+    {
+      "type": "header",
+      "content": "Backend (advanced)"
+    },
+    {
+      "type": "text",
+      "id": "supabase_url",
+      "label": "Supabase project URL"
+    },
+    {
+      "type": "text",
+      "id": "supabase_anon_key",
+      "label": "Supabase anon key"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Birthday Club",
+      "category": "Promotional"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "404",
+      "article",
+      "blog",
+      "cart",
+      "collection",
+      "list-collections",
+      "index",
+      "page",
+      "search",
+      "product"
+    ]
+  }
+}
+{% endschema %}

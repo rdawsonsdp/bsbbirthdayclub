@@ -1,0 +1,166 @@
+@page {
+  size: Letter;
+  margin: 0.75in 0.85in;
+  @bottom-center {
+    content: counter(page) " / " counter(pages);
+    font-family: -apple-system, "Helvetica Neue", sans-serif;
+    font-size: 9pt;
+    color: #888;
+  }
+}
+
+html, body {
+  font-family: -apple-system, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  color: #1c1c1c;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 22pt;
+  color: #6B3410;
+  border-bottom: 3px solid #C9A064;
+  padding-bottom: 6pt;
+  margin-top: 0;
+  page-break-after: avoid;
+}
+
+h1.title {
+  font-size: 26pt;
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+p.subtitle {
+  font-size: 14pt;
+  color: #6B3410;
+  margin-top: 4pt;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 16pt;
+  color: #6B3410;
+  border-bottom: 1px solid #E0CFA8;
+  padding-bottom: 4pt;
+  margin-top: 28pt;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-size: 12.5pt;
+  color: #4a2606;
+  margin-top: 18pt;
+  page-break-after: avoid;
+}
+
+h4 {
+  font-size: 11pt;
+  color: #4a2606;
+  margin-top: 14pt;
+  page-break-after: avoid;
+}
+
+p, li {
+  orphans: 3;
+  widows: 3;
+}
+
+strong {
+  color: #4a2606;
+}
+
+a {
+  color: #8B4513;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 12pt 0;
+  font-size: 9.5pt;
+  page-break-inside: avoid;
+}
+
+th {
+  background: #6B3410;
+  color: #fff;
+  text-align: left;
+  padding: 6pt 8pt;
+  font-weight: 600;
+}
+
+td {
+  padding: 5pt 8pt;
+  border-bottom: 1px solid #E8E0D0;
+  vertical-align: top;
+}
+
+tr:nth-child(even) td {
+  background: #FBF6EC;
+}
+
+code {
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 9pt;
+  background: #F5EDDD;
+  padding: 1pt 4pt;
+  border-radius: 3px;
+  color: #4a2606;
+}
+
+pre {
+  background: #FBF6EC;
+  border-left: 3px solid #C9A064;
+  padding: 10pt 12pt;
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 8.5pt;
+  line-height: 1.4;
+  overflow-x: auto;
+  page-break-inside: avoid;
+  border-radius: 0 4px 4px 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: #2c1a08;
+}
+
+blockquote {
+  border-left: 3px solid #C9A064;
+  margin: 10pt 0;
+  padding: 4pt 14pt;
+  color: #4a2606;
+  font-style: italic;
+  background: #FBF6EC;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #C9A064;
+  margin: 24pt 0;
+}
+
+ul, ol {
+  padding-left: 22pt;
+}
+
+li {
+  margin: 3pt 0;
+}
+
+/* Avoid orphan headings; keep tables together where possible */
+h1, h2, h3, h4 {
+  break-after: avoid-page;
+}
+
+/* Cover page metadata block */
+.title-block-header {
+  margin-bottom: 30pt;
+}
